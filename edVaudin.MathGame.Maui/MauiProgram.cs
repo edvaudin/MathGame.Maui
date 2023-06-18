@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using edVaudin.MathGame.Maui.Data;
 
 namespace edVaudin.MathGame.Maui;
 
@@ -15,9 +15,9 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
-#if DEBUG
-		builder.Logging.AddDebug();
-#endif
+		string dbPath = Path.Combine(FileSystem.AppDataDirectory, "game.db");
+
+		builder.Services.AddSingleton(s => ActivatorUtilities.CreateInstance<GameRepository>(s, dbPath));
 
 		return builder.Build();
 	}
